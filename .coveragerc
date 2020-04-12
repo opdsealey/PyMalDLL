@@ -1,0 +1,13 @@
+[run]
+source =
+    py_mal_dll
+    tests
+
+[paths]
+source =
+    src/py_mal_dll
+    */site-packages/py_mal_dll
+
+[report]
+show_missing = true
+precision = 2
