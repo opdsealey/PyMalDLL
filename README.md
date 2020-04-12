@@ -4,7 +4,6 @@ A tool to speed up the process of creating malicous DLLs for side loading and se
 
 
 ## Usage
----
 
 ```terminal
 python create_dll.py --help
@@ -20,14 +19,12 @@ optional arguments:
 ```
 
 ## Installation
----
 
 1. Clone or download this repositry `git clone https://github.com/opdsealey/PyMalDLL`
 2. Create a virtual envireoment, `python3 -m venv venv --prompt mal-dll` (this project currently requires python 3.8+) and activate `.\venv\Scripts\activate` 
 3. Install the package `pip install .`. 
 
 ## API
----
 
 create_dll.**DllCreator**(
 *original_dll*,
@@ -35,7 +32,6 @@ create_dll.**DllCreator**(
 *unique_exports_*=*False*,
 *tempate_folder*=*TEMPLATE_FOLDER*,
 )
----
 
 Returns a `DllCreator` object after creating output folder and verifying that all required templates exist. 
 
@@ -47,24 +43,24 @@ Returns a `DllCreator` object after creating output folder and verifying that al
 
 *template_folder* the folder containing all required tempaltes, incorecctly editing files within the defualt templates folder can have breaking effects.
 
+
 DllProxyCreator.**parse_exports**(*self*)
----
 
 Extracts the DLLs from the target DLL.
 
 DllProxyCreator.**parse_version_info**(*self*):
----
 
 Extracts the dll version info
 
+
 DllProxyCreator.**render**(*self*, *function_name_stem*=*"RedirectedFunction"*, *unqiue*=*False*)
----
 
 Renders the required files to create the DLL Visual Studio project. Must be called after **parse_exports** and **parse_version_info**, if they have not been called a `ValueError` is raised.
 
 *function_name_stem* is the default name given to the function all exported functions call. If *unique* is true these will be in the form *function_name_stem_{incrementing_number}*.
 
 *unique* if `True` each exported function will redirect to a uniquely named function, the skeleton for each function will also be created *Warning, this can make for very large and unmanagable fles.*
+
 
 ## Feature List
 
