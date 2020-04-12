@@ -26,12 +26,7 @@ optional arguments:
 
 ## API
 
-create_dll.**DllCreator**(
-*original_dll*,
-*outfolder*,
-*unique_exports_*=*False*,
-*tempate_folder*=*TEMPLATE_FOLDER*,
-)
+### create_dll.**DllCreator**(*original_dll*,*outfolder*,*unique_exports_*=*False*,*tempate_folder*=*TEMPLATE_FOLDER*,)
 
 Returns a `DllCreator` object after creating output folder and verifying that all required templates exist. 
 
@@ -44,16 +39,16 @@ Returns a `DllCreator` object after creating output folder and verifying that al
 *template_folder* the folder containing all required tempaltes, incorecctly editing files within the defualt templates folder can have breaking effects.
 
 
-DllProxyCreator.**parse_exports**(*self*)
+### DllProxyCreator.**parse_exports**(*self*)
 
 Extracts the DLLs from the target DLL.
 
-DllProxyCreator.**parse_version_info**(*self*):
+### DllProxyCreator.**parse_version_info**(*self*):
 
 Extracts the dll version info
 
 
-DllProxyCreator.**render**(*self*, *function_name_stem*=*"RedirectedFunction"*, *unqiue*=*False*)
+### DllProxyCreator.**render**(*self*, *function_name_stem*=*"RedirectedFunction"*, *unqiue*=*False*)
 
 Renders the required files to create the DLL Visual Studio project. Must be called after **parse_exports** and **parse_version_info**, if they have not been called a `ValueError` is raised.
 
