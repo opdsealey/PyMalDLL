@@ -1,6 +1,6 @@
 # Python Malicous DLL Creator (PyMalDLL)
 
-A tool to speed up the process of creating malicous DLLs for side loading and search order hijacking. This project has been designed to run on windows systems and has not been tested on any other OS.
+A tool to speed up the process of creating malicous DLLs for side loading and search order hijacking. PyMalDll takes a legitimate DLL and creates the `.c` and Visual Studio files required to compile a DLL that exports the required functions. All you need to do is add whatever you want to execute once the exported function has been redirected. This project has been designed to run on windows systems and has not been tested on any other OS.
 
 
 ## Usage
@@ -22,11 +22,11 @@ optional arguments:
 
 1. Clone or download this repositry `git clone https://github.com/opdsealey/PyMalDLL`
 2. Create a virtual envireoment, `python3 -m venv venv --prompt mal-dll` (this project currently requires python 3.8+) and activate `.\venv\Scripts\activate` 
-3. Install the package `pip install .`. 
+3. Install the package `pip install .` 
 
 ## API
 
-### create_dll.**DllCreator**(*original_dll*,*outfolder*,*unique_exports_*=*False*,*tempate_folder*=*TEMPLATE_FOLDER*,)
+### create_dll.**DllCreator**(*original_dll*,*outfolder*,*unique_exports*=*False*,*tempate_folder*=*TEMPLATE_FOLDER*)
 
 Returns a `DllCreator` object after creating output folder and verifying that all required templates exist. 
 
@@ -43,7 +43,7 @@ Returns a `DllCreator` object after creating output folder and verifying that al
 
 Extracts the DLLs from the target DLL.
 
-### DllProxyCreator.**parse_version_info**(*self*):
+### DllProxyCreator.**parse_version_info**(*self*)
 
 Extracts the dll version info
 
@@ -65,3 +65,25 @@ Renders the required files to create the DLL Visual Studio project. Must be call
 - [ ] Automatically include supplied shellcode
 - [ ] Add more meaningful tests
 
+## Notes 
+
+Once created the Visual Studio project will be configured such that the Release build for both x86 and x64 will be staically linked and contain no PBD paths or symbols.
+
+## Known Bugs
+
+- Due to how `pefile` processes ordinals they are always reported sequentially rather than by the actual exported ordinal. If the target DLL exports by non-standard ordinals you may wish to check that the ordinals are correct before compiling.
+
+
+## Dev Tasks
+- [ ] Get 100% coverage
+  - [ ] Create DLL with no imports 
+    - [ ] x86
+    - [ ] x64
+  - [ ] Create DLL with no file inforamtion
+    - [ ] x86
+    - [ ] x64
+  - [ ] Create DLL with imports by name / ordinal only
+    - [ ] x86
+    - [ ] x64
+ 
+ - [ ] Remove resource file and edit `.vcxproj` to remove ref when no version info is detected.

@@ -30,8 +30,9 @@ class DllCreator:
     def _create_output_folder(folder_name):
         """ Creates the folder or raises a FileExistsError
         which will buble to the cmd line """
-        Path(folder_name).mkdir()
-        return folder_name
+        path = Path(folder_name).absolute()
+        path.mkdir()
+        return path
 
     @staticmethod
     def _create_template_env(template_folder):
@@ -57,9 +58,9 @@ class DllCreator:
         self._render_exports_def(
             function_name_stem=function_name_stem, unqiue=unique_name
         )
-        self._render_resource_file()
         self._render_dllmain()
         self._render_vcxproject()
+        self._render_resource_file()
 
     def parse_exports(self):
         """
@@ -69,7 +70,6 @@ class DllCreator:
         d = [pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXPORT"]]
         pe = pefile.PE(self.original_dll_path, fast_load=True)
         pe.parse_data_directories(directories=d)
-
         exports = [(e.ordinal, e.name) for e in pe.DIRECTORY_ENTRY_EXPORT.symbols]
         self.target_dll_exported_functions = exports
         self.parsed["exports"] = True
@@ -102,10 +102,11 @@ class DllCreator:
                                     self.version_info["FILEVERSION"] = (
                                         v.decode().split(" ", 1)[0].replace(".", ",")
                                     )
-        except KeyError:
+        except AttributeError:
             print(
                 "[!] Could not pass version/file info. Info table will not be created"
             )
+            self.version_info = False
 
         self.parsed["version"] = True
 
@@ -148,6 +149,20 @@ class DllCreator:
         Creates the resource file to include the file information in the new dll
         :return: (None)
         """
+        if not self.version_info:
+            # No version info in file so remove references and file
+            vsxproj = self.outfolder / "MaliciousDll.vcxproj"
+            with open(vsxproj, "r") as fp:
+                original = fp.readlines()
+
+            with open(vsxproj, "w") as fp:
+                for line in original:
+                    if (
+                        line.strip("\n").lstrip()
+                        != '<ResourceCompile Include="resource.rc" />'
+                    ):
+                        fp.write(line)
+            return
 
         template = self.templateEnv.get_template("resource.rc")
         with open(os.path.join(OUTPUT_FOLDER, "resource.rc"), "w") as fp:
@@ -173,7 +188,14 @@ class DllCreator:
         """
         template = self.templateEnv.get_template("MaliciousDll.vcxproj")
         with open(os.path.join(OUTPUT_FOLDER, "MaliciousDll.vcxproj"), "w") as fp:
-            fp.write(template.render(TargetName=self.version_info["OriginalFilename"]))
+            try:
+                fp.write(
+                    template.render(
+                        TargetName=(".").join(self.original_dll_name.split(".")[:-1])
+                    )
+                )
+            except IndexError:
+                fp.write(template.render(TargetName=self.original_dll_name))
 
         copyfile(
             os.path.join(TEMPLATE_FOLDER, "MaliciousDll.vcxproj.user"),

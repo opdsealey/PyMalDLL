@@ -30,12 +30,8 @@ def test_create_parse_exports(dll_creator_mocked_pefile):
     expected_funclist = set(zip(range(len(FAKE_FUNCTION_LIST_1)), FAKE_FUNCTION_LIST_1))
     dll_creator_mocked_pefile.parse_exports()
     assert dll_creator_mocked_pefile.parsed["exports"] is True
-    assert dll_creator_fake_taget.parsed["version"] is False
+    assert dll_creator_mocked_pefile.parsed["version"] is False
     assert (
         set(dll_creator_mocked_pefile.target_dll_exported_functions)
         == expected_funclist
     )
-
-
-def test_parse_version_info():
-    pass
