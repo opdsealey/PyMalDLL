@@ -1,11 +1,17 @@
 from pathlib import Path
 
 from setuptools import find_packages, setup
+from os import path
+from io import open
+
+here = path.abspath(path.dirname(__file__))
+
+# Get the long description from the README file
+with open(path.join(here, "README.md"), encoding="utf-8") as f:
+    long_description = f.read()
 
 DESCRIPTION = """A tool to speed up the process of creating malicious DLLs for
 side loading and search order hijacking."""
-APP_ROOT = Path(__file__).parent
-README = (APP_ROOT / "README.md").read_text()
 AUTHOR = "Oliver Sealey"
 AUTHOR_EMAIL = "contact@carbide-security.io"
 PROJECT_URLS = {
@@ -24,7 +30,7 @@ EXTRAS_REQUIRE = {"dev": ["black", "flake8", "isort", "tox", "pytest", "pre-comm
 setup(
     name="py-mal-dll",
     description=DESCRIPTION,
-    long_description=README,
+    long_description=long_description,
     long_description_content_type="text/markdown",
     author=AUTHOR,
     author_email=AUTHOR_EMAIL,
