@@ -4,8 +4,7 @@ from tests.helpers import check_output_files_exist
 from tests.utils import BASE_PATH, ORIGINAL_TEMPLATE_FOLDER
 
 
-# def test_no_version_info_exports(capsys, output_folder):
-def test_no_version_info_exports(output_folder):
+def test_no_version_info_exports(capsys, output_folder):
     dll_path = BASE_PATH / "resources" / "x64" / "NoVersionInfo.dll"
     creator = DllCreator(original_dll=dll_path, outfolder=output_folder)
     from os import path
@@ -21,11 +20,11 @@ def test_no_version_info_exports(output_folder):
     )
     assert creator.parsed["exports"] is True
     creator.parse_version_info()
-    # captured = capsys.readouterr()
-    # assert (
-    #     captured.err
-    #     == "[!] Could not pass version/file info. Info table will not be created\n"
-    # )
+    captured = capsys.readouterr()
+    assert (
+        captured.err
+        == "[!] Could not pass version/file info. Info table will not be created\n"
+    )
     assert creator.parsed["version"] is True
     assert creator.version_info is None
 
@@ -35,11 +34,8 @@ def test_no_version_info_exports(output_folder):
 
 def test_version_info_name_and_ordinal_exports(capsys, output_folder):
     dll_path = BASE_PATH / "resources" / "x64" / "NameAndOrdinal.dll"
-    creator = DllCreator(
-        original_dll=dll_path, outfolder=output_folder, template_folder="templates",
-    )
+    creator = DllCreator(original_dll=dll_path, outfolder=output_folder)
     creator.parse_exports()
-    print(creator.target_dll_exported_functions)
     assert set(creator.target_dll_exported_functions) == set(
         [
             (0x60E, None),

@@ -54,22 +54,23 @@ setup(
     python_requires=">=3.6",
     install_requires=INSTALL_REQUIRES,
     extras_require=EXTRAS_REQUIRE,
-    data_files=[
-        ("license", ["LICENSE"]),
-        (
-            "templates",
-            [
-                path.join("src", "py_mal_dll", "templates", "dllmain.c"),
-                path.join("src", "py_mal_dll", "templates", "exports.def"),
-                path.join("src", "py_mal_dll", "templates", "resource.rc"),
-                path.join("src", "py_mal_dll", "templates", "MaliciousDLL.vcxproj"),
-                path.join(
-                    "src", "py_mal_dll", "templates", "MaliciousDLL.vcxproj.filters",
-                ),
-                path.join(
-                    "src", "py_mal_dll", "templates", "MaliciousDLL.vcxproj.user"
-                ),
-            ],
-        ),
-    ],
+    include_package_data=True,
+    # data_files=[
+    #     ("license", ["LICENSE"]),
+    #     (
+    #         "templates",
+    #         [
+    #             path.join("src", "py_mal_dll", "templates", "dllmain.c"),
+    #             path.join("src", "py_mal_dll", "templates", "exports.def"),
+    #             path.join("src", "py_mal_dll", "templates", "resource.rc"),
+    #             path.join("src", "py_mal_dll", "templates", "MaliciousDLL.vcxproj"),
+    #             path.join(
+    #                 "src", "py_mal_dll", "templates", "MaliciousDLL.vcxproj.filters",
+    #             ),
+    #             path.join(
+    #                 "src", "py_mal_dll", "templates", "MaliciousDLL.vcxproj.user"
+    #             ),
+    #         ],
+    #     ),
+    # ],
 )
