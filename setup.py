@@ -24,7 +24,7 @@ INSTALL_REQUIRES = [
     "MarkupSafe",
     "pefile",
 ]
-EXTRAS_REQUIRE = {"dev": ["black", "flake8", "isort", "tox", "pytest", "pre-commit",]}
+EXTRAS_REQUIRE = {"dev": ["black", "flake8", "isort", "tox", "pytest", "pre-commit"]}
 
 setup(
     name="py-mal-dll",
