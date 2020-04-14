@@ -38,7 +38,7 @@ setup(
     license="MIT",
     url="https://github.com/opdsealey/PyMalDLL",
     project_urls=PROJECT_URLS,
-    version="0.2",
+    version="0.3.0",
     packages=find_packages(where="src"),
     package_dir={"": "src"},
     python_requires=">=3.6",
