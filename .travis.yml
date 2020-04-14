@@ -7,7 +7,7 @@ python:
   - "3.8"
 # command to install dependencies
 install:
-  - pip install .[dev]
+  - pip install tox-travis
 # command to run tests
 script:
   - tox
