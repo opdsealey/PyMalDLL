@@ -60,15 +60,21 @@ setup(
         (
             "templates",
             [
-                path.join("src", "py_mal_dll", "templates", "dllmain.c"),
-                path.join("src", "py_mal_dll", "templates", "exports.def"),
-                path.join("src", "py_mal_dll", "templates", "resource.rc"),
-                path.join("src", "py_mal_dll", "templates", "MaliciousDLL.vcxproj"),
+                path.join(".", "src", "py_mal_dll", "templates", "dllmain.c"),
+                path.join(".", "src", "py_mal_dll", "templates", "exports.def"),
+                path.join(".", "src", "py_mal_dll", "templates", "resource.rc"),
                 path.join(
-                    "src", "py_mal_dll", "templates", "MaliciousDLL.vcxproj.filters"
+                    ".", "src", "py_mal_dll", "templates", "MaliciousDLL.vcxproj"
                 ),
                 path.join(
-                    "src", "py_mal_dll", "templates", "MaliciousDLL.vcxproj.user"
+                    ".",
+                    "src",
+                    "py_mal_dll",
+                    "templates",
+                    "MaliciousDLL.vcxproj.filters",
+                ),
+                path.join(
+                    ".", "src", "py_mal_dll", "templates", "MaliciousDLL.vcxproj.user"
                 ),
             ],
         ),

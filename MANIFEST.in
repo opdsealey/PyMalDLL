@@ -1,0 +1,4 @@
+include LICENSE
+
+recursive-include tests *
+recursive-include src/py_mal_dll/templates *
