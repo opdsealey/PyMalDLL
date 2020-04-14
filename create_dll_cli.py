@@ -41,9 +41,19 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     creator = DllCreator(original_dll=args.original_dll, outfolder=args.output_folder,)
-
+    print("[+] Parsing DLL exports.")
     creator.parse_exports()
+    print(
+        "[+] {} exports extracted.".format(len(creator.target_dll_exported_functions))
+    )
+    print("[+] Parsing DLL version info.")
     creator.parse_version_info()
+    print("[+] Rendering output files.")
     creator.render(
         function_name_stem=args.function_name, unique_name=args.unique_export_functions
+    )
+    print(
+        '[+] Files output to "{}". Open "{}" with Visual Studio to get started, if you\'re using a different version you may ned to upgrade the project'.format(
+            creator.outfolder, creator.outfolder / "MaliciousDLL.vcxproj"
+        )
     )
