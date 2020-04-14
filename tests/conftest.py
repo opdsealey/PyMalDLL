@@ -4,7 +4,7 @@ from pathlib import Path
 
 import py_mal_dll.create_dll
 import pytest
-from tests.utils import FAKE_DLL_PATH, TEST_OUTPUT_FOLDER_NAME, mocked_pefile
+from tests.utils import FAKE_DLL_PATH, TEST_OUTPUT_FOLDER_NAME
 
 """ Basic cleanup if any folders stll exist """
 
@@ -30,15 +30,6 @@ def output_folder(base_dir):
 
 @pytest.fixture
 def dll_creator_fake_taget(output_folder):
-    creator = py_mal_dll.create_dll.DllCreator(
-        original_dll=FAKE_DLL_PATH, outfolder=output_folder
-    )
-    return creator
-
-
-@pytest.fixture
-def dll_creator_mocked_pefile(output_folder):
-    py_mal_dll.create_dll.pefile = mocked_pefile
     creator = py_mal_dll.create_dll.DllCreator(
         original_dll=FAKE_DLL_PATH, outfolder=output_folder
     )

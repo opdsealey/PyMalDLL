@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
+import sys
 from pathlib import Path
 from shutil import copyfile
 
@@ -8,19 +9,19 @@ import pefile
 
 dir_path = Path(__file__).parent
 
-OUTPUT_FOLDER = r".\output"
+# OUTPUT_FOLDER = r".\output"
 TEMPLATE_FOLDER = dir_path / "templates"
 
 
 class DllCreator:
     def __init__(
-        self, original_dll, outfolder, tempate_folder=TEMPLATE_FOLDER,
+        self, original_dll, outfolder, template_folder=TEMPLATE_FOLDER,
     ):
         self.original_dll_name = os.path.split(original_dll)[-1]
         self.original_dll_path = original_dll
         self.outfolder = DllCreator._create_output_folder(outfolder)
-        self.templateEnv = self._create_template_env(template_folder=tempate_folder)
-
+        self.templateEnv = self._create_template_env(template_folder=template_folder)
+        self.template_folder = Path(template_folder).absolute()
         self.target_dll_exported_functions = []
         self.version_info = {}
         self.parsed = {"exports": False, "version": False}
@@ -104,9 +105,10 @@ class DllCreator:
                                     )
         except AttributeError:
             print(
-                "[!] Could not pass version/file info. Info table will not be created"
+                "[!] Could not pass version/file info. Info table will not be created",
+                file=sys.stderr,
             )
-            self.version_info = False
+            self.version_info = None
 
         self.parsed["version"] = True
 
@@ -141,7 +143,7 @@ class DllCreator:
 
             i += 1
 
-        with open(os.path.join(OUTPUT_FOLDER, "exports.def"), "w") as fp:
+        with open(self.outfolder / "exports.def", "w") as fp:
             fp.write(template.render(exports=exports))
 
     def _render_resource_file(self):
@@ -165,7 +167,7 @@ class DllCreator:
             return
 
         template = self.templateEnv.get_template("resource.rc")
-        with open(os.path.join(OUTPUT_FOLDER, "resource.rc"), "w") as fp:
+        with open(self.outfolder / "resource.rc", "w") as fp:
             fp.write(template.render(self.version_info))
 
     def _render_dllmain(self):
@@ -178,7 +180,7 @@ class DllCreator:
             exported_func_bodies += "VOID {}(VOID){{ return; }}\n".format(func)
 
         template = self.templateEnv.get_template("dllmain.c")
-        with open(os.path.join(OUTPUT_FOLDER, "dllmain.c"), "w") as fp:
+        with open(self.outfolder / "dllmain.c", "w") as fp:
             fp.write(template.render(exported_function_body=exported_func_bodies))
 
     def _render_vcxproject(self):
@@ -187,7 +189,7 @@ class DllCreator:
         :return: (None)
         """
         template = self.templateEnv.get_template("MaliciousDll.vcxproj")
-        with open(os.path.join(OUTPUT_FOLDER, "MaliciousDll.vcxproj"), "w") as fp:
+        with open(self.outfolder / "MaliciousDll.vcxproj", "w") as fp:
             try:
                 fp.write(
                     template.render(
@@ -198,11 +200,11 @@ class DllCreator:
                 fp.write(template.render(TargetName=self.original_dll_name))
 
         copyfile(
-            os.path.join(TEMPLATE_FOLDER, "MaliciousDll.vcxproj.user"),
-            os.path.join(OUTPUT_FOLDER, "MaliciousDll.vcxproj.user"),
+            self.template_folder / "MaliciousDll.vcxproj.user",
+            self.outfolder / "MaliciousDll.vcxproj.user",
         )
 
         copyfile(
-            os.path.join(TEMPLATE_FOLDER, "MaliciousDll.vcxproj.filters"),
-            os.path.join(OUTPUT_FOLDER, "MaliciousDll.vcxproj.filters"),
+            self.template_folder / "MaliciousDll.vcxproj.filters",
+            self.outfolder / "MaliciousDll.vcxproj.filters",
         )

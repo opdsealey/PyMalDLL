@@ -26,7 +26,7 @@ optional arguments:
 
 ## API
 
-### create_dll.**DllCreator**(*original_dll*,*outfolder*,*unique_exports*=*False*,*tempate_folder*=*TEMPLATE_FOLDER*)
+### create_dll.**DllCreator**(*original_dll*,*outfolder*,*unique_exports*=*False*,*template_folder*=*".\\\\templates"*)
 
 Returns a `DllCreator` object after creating output folder and verifying that all required templates exist. 
 
@@ -57,24 +57,22 @@ Renders the required files to create the DLL Visual Studio project. Must be call
 *unique* if `True` each exported function will redirect to a uniquely named function, the skeleton for each function will also be created *Warning, this can make for very large and unmanagable fles.*
 
 
-## Feature List
+## Future Feature List
 
-- [ ] Convert useage of `os.path` to `Pathlib`
 - [ ] Allow redirected function body `.c` file to be provided.
 - [ ] Functionality to create proxy DLLs
 - [ ] Automatically include supplied shellcode
 - [ ] Add more meaningful tests
+- [ ] Automatic detection of COM DLLs and production of basic skeleton
+- [ ] Add logging
 
 ## Notes 
 
 Once created the Visual Studio project will be configured such that the Release build for both x86 and x64 will be staically linked and contain no PBD paths or symbols.
 
-## Known Bugs
-
-- Due to how `pefile` processes ordinals they are always reported sequentially rather than by the actual exported ordinal. If the target DLL exports by non-standard ordinals you may wish to check that the ordinals are correct before compiling.
-
-
 ## Dev Tasks
+
+- [ ] Convert usage of `os.path` to `Pathlib`
 - [ ] Get 100% coverage
   - [ ] Create DLL with no imports 
     - [ ] x86
@@ -86,4 +84,3 @@ Once created the Visual Studio project will be configured such that the Release 
     - [ ] x86
     - [ ] x64
  
- - [ ] Remove resource file and edit `.vcxproj` to remove ref when no version info is detected.

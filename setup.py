@@ -39,4 +39,19 @@ setup(
     python_requires=">=3.6",
     install_requires=INSTALL_REQUIRES,
     extras_require=EXTRAS_REQUIRE,
+    include_package_data=True,
+    data_files=[
+        ("license", ["LICENSE"]),
+        (
+            "templates",
+            [
+                "src\\py_mal_dll\\templates\\dllmain.c",
+                "src\\py_mal_dll\\templates\\exports.def",
+                "src\\py_mal_dll\\templates\\resource.rc",
+                "src\\py_mal_dll\\templates\\MaliciousDLL.vcxproj",
+                "src\\py_mal_dll\\templates\\MaliciousDLL.vcxproj.filters",
+                "src\\py_mal_dll\\templates\\MaliciousDLL.vcxproj.user",
+            ],
+        ),
+    ],
 )
