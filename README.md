@@ -74,13 +74,4 @@ Once created the Visual Studio project will be configured such that the Release 
 
 - [ ] Convert usage of `os.path` to `Pathlib`
 - [ ] Get 100% coverage
-  - [ ] Create DLL with no imports 
-    - [ ] x86
-    - [ ] x64
-  - [ ] Create DLL with no file inforamtion
-    - [ ] x86
-    - [ ] x64
-  - [ ] Create DLL with imports by name / ordinal only
-    - [ ] x86
-    - [ ] x64
  
