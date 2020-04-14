@@ -1,6 +1,6 @@
 [![Code style:black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Build Status](https://travis-ci.com/opdsealey/PyMalDLL.svg?branch=master)](https://travis-ci.com/opdsealey/PyMalDLL)
-
+[![Coverage Status](https://coveralls.io/repos/github/opdsealey/PyMalDLL/badge.svg?branch=master)](https://coveralls.io/github/opdsealey/PyMalDLL?branch=master)
 
 
 # Python Malicous DLL Creator (PyMalDLL)
