@@ -155,7 +155,7 @@ class DllCreator:
         """
         if not self.version_info:
             # No version info in file so remove references and file
-            vsxproj = self.outfolder / "MaliciousDll.vcxproj"
+            vsxproj = self.outfolder / "MaliciousDLL.vcxproj"
             with open(vsxproj, "r") as fp:
                 original = fp.readlines()
 
@@ -190,8 +190,8 @@ class DllCreator:
         Updates and creates required VS project files
         :return: (None)
         """
-        template = self.templateEnv.get_template("MaliciousDll.vcxproj")
-        with open(self.outfolder / "MaliciousDll.vcxproj", "w") as fp:
+        template = self.templateEnv.get_template("MaliciousDLL.vcxproj")
+        with open(self.outfolder / "MaliciousDLL.vcxproj", "w") as fp:
             try:
                 fp.write(
                     template.render(
@@ -202,11 +202,11 @@ class DllCreator:
                 fp.write(template.render(TargetName=self.original_dll_name))
 
         copyfile(
-            self.template_folder / "MaliciousDll.vcxproj.user",
-            self.outfolder / "MaliciousDll.vcxproj.user",
+            self.template_folder / "MaliciousDLL.vcxproj.user",
+            self.outfolder / "MaliciousDLL.vcxproj.user",
         )
 
         copyfile(
-            self.template_folder / "MaliciousDll.vcxproj.filters",
-            self.outfolder / "MaliciousDll.vcxproj.filters",
+            self.template_folder / "MaliciousDLL.vcxproj.filters",
+            self.outfolder / "MaliciousDLL.vcxproj.filters",
         )
