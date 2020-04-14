@@ -8,11 +8,12 @@ python:
 # command to install dependencies
 install:
   - pip install .[dev]
+  - pip install coverage==4.5.4
+  - pip install python-coveralls
 # command to run tests
 script:
   - coverage run --parallel-mode -m pytest --capture=no  -v
   - coverage combine
   - coverage xml
-  - coverage report --fail-under=100
 after_success:
   - coveralls

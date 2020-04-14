@@ -17,8 +17,8 @@ class DllCreator:
     def __init__(
         self, original_dll, outfolder, template_folder=TEMPLATE_FOLDER,
     ):
-        self.original_dll_name = os.path.split(original_dll)[-1]
-        self.original_dll_path = original_dll
+        self.original_dll_name = Path(original_dll).name
+        self.original_dll_path = Path(original_dll).absolute()
         self.outfolder = DllCreator._create_output_folder(outfolder)
         self.template_folder = Path(template_folder).absolute()
         self.templateEnv = self._create_template_env(

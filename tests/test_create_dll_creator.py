@@ -21,7 +21,7 @@ def test_create_class_output_already_exist(created_output_folder):
 
 def test_created_params(dll_creator_fake_taget):
     assert dll_creator_fake_taget.original_dll_name == FAKE_DLL_NAME
-    assert dll_creator_fake_taget.original_dll_path == FAKE_DLL_PATH
+    assert dll_creator_fake_taget.original_dll_path == Path(FAKE_DLL_PATH).absolute()
     assert dll_creator_fake_taget.parsed["exports"] is False
     assert dll_creator_fake_taget.parsed["version"] is False
 
