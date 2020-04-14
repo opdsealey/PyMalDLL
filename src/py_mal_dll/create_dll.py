@@ -20,8 +20,10 @@ class DllCreator:
         self.original_dll_name = os.path.split(original_dll)[-1]
         self.original_dll_path = original_dll
         self.outfolder = DllCreator._create_output_folder(outfolder)
-        self.templateEnv = self._create_template_env(template_folder=template_folder)
         self.template_folder = Path(template_folder).absolute()
+        self.templateEnv = self._create_template_env(
+            template_folder=self.template_folder
+        )
         self.target_dll_exported_functions = []
         self.version_info = {}
         self.parsed = {"exports": False, "version": False}

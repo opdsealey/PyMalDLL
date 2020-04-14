@@ -1,4 +1,14 @@
 include LICENSE
+include pyproject.toml
+
+exclude .coveragerc
+exclude .mailmap
+exclude .appveyor.yml
+exclude .travis.yml
+exclude .readthedocs.yml
+exclude .pre-commit-config.yaml
+exclude tox.ini
+exclude noxfile.py
 
 recursive-include tests *
-recursive-include src/py_mal_dll/templates *
+recursive-include src *.c *.h *.def *.rc *.vcxproj *.vcxproj.filters *.vcxproj.user

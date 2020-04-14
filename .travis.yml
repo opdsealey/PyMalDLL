@@ -1,12 +1,14 @@
 language: python
 python:
-  - "2.7"
-  - "3.4"
+  - "3.8"
 # command to install dependencies
 install:
-  - pip install tox-travis
+  - pip install .[dev]
 # command to run tests
 script:
-  - tox
+  - coverage run --parallel-mode -m pytest --capture=no  -v
+  - coverage combine
+  - coverage xml
+  - coverage report --fail-under=100
 after_success:
   - coveralls

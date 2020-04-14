@@ -48,33 +48,26 @@ setup(
     license="MIT",
     url="https://github.com/opdsealey/PyMalDLL",
     project_urls=PROJECT_URLS,
-    version="0.1",
+    version="0.2",
     packages=find_packages(where="src"),
     package_dir={"": "src"},
     python_requires=">=3.6",
     install_requires=INSTALL_REQUIRES,
     extras_require=EXTRAS_REQUIRE,
-    include_package_data=True,
     data_files=[
         ("license", ["LICENSE"]),
         (
             "templates",
             [
-                path.join(".", "src", "py_mal_dll", "templates", "dllmain.c"),
-                path.join(".", "src", "py_mal_dll", "templates", "exports.def"),
-                path.join(".", "src", "py_mal_dll", "templates", "resource.rc"),
+                path.join("src", "py_mal_dll", "templates", "dllmain.c"),
+                path.join("src", "py_mal_dll", "templates", "exports.def"),
+                path.join("src", "py_mal_dll", "templates", "resource.rc"),
+                path.join("src", "py_mal_dll", "templates", "MaliciousDLL.vcxproj"),
                 path.join(
-                    ".", "src", "py_mal_dll", "templates", "MaliciousDLL.vcxproj"
+                    "src", "py_mal_dll", "templates", "MaliciousDLL.vcxproj.filters",
                 ),
                 path.join(
-                    ".",
-                    "src",
-                    "py_mal_dll",
-                    "templates",
-                    "MaliciousDLL.vcxproj.filters",
-                ),
-                path.join(
-                    ".", "src", "py_mal_dll", "templates", "MaliciousDLL.vcxproj.user"
+                    "src", "py_mal_dll", "templates", "MaliciousDLL.vcxproj.user"
                 ),
             ],
         ),
