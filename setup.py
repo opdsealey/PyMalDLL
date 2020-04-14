@@ -1,8 +1,7 @@
-from pathlib import Path
+from io import open
+from os import path
 
 from setuptools import find_packages, setup
-from os import path
-from io import open
 
 here = path.abspath(path.dirname(__file__))
 
@@ -25,7 +24,17 @@ INSTALL_REQUIRES = [
     "MarkupSafe",
     "pefile",
 ]
-EXTRAS_REQUIRE = {"dev": ["black", "flake8", "isort", "tox", "pytest", "pre-commit"]}
+EXTRAS_REQUIRE = {
+    "dev": [
+        "black",
+        "flake8",
+        "isort",
+        "tox",
+        "pytest",
+        "pre-commit",
+        "python-coveralls",
+    ]
+}
 
 setup(
     name="py-mal-dll",
@@ -51,12 +60,16 @@ setup(
         (
             "templates",
             [
-                "src\\py_mal_dll\\templates\\dllmain.c",
-                "src\\py_mal_dll\\templates\\exports.def",
-                "src\\py_mal_dll\\templates\\resource.rc",
-                "src\\py_mal_dll\\templates\\MaliciousDLL.vcxproj",
-                "src\\py_mal_dll\\templates\\MaliciousDLL.vcxproj.filters",
-                "src\\py_mal_dll\\templates\\MaliciousDLL.vcxproj.user",
+                path.join("src", "py_mal_dll", "templates", "dllmain.c"),
+                path.join("src", "py_mal_dll", "templates", "exports.def"),
+                path.join("src", "py_mal_dll", "templates", "resource.rc"),
+                path.join("src", "py_mal_dll", "templates", "MaliciousDLL.vcxproj"),
+                path.join(
+                    "src", "py_mal_dll", "templates", "MaliciousDLL.vcxproj.filters"
+                ),
+                path.join(
+                    "src", "py_mal_dll", "templates", "MaliciousDLL.vcxproj.user"
+                ),
             ],
         ),
     ],
