@@ -1,12 +1,18 @@
-[![Code style:black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Build Status](https://travis-ci.com/opdsealey/PyMalDLL.svg?branch=master)](https://travis-ci.com/opdsealey/PyMalDLL)
 [![Coverage Status](https://coveralls.io/repos/github/opdsealey/PyMalDLL/badge.svg?branch=master)](https://coveralls.io/github/opdsealey/PyMalDLL?branch=master)
-
+![GitHub](https://img.shields.io/github/license/opdsealey/PyMalDLL)
+[![Code style:black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 # Python Malicous DLL Creator (PyMalDLL)
 
 A tool to speed up the process of creating malicous DLLs for side loading and search order hijacking. PyMalDll takes a legitimate DLL and creates the `.c` and Visual Studio files required to compile a DLL that exports the required functions. All you need to do is add whatever you want to execute once the exported function has been redirected. This project has been designed to run on windows systems and has not been tested on any other OS.
 
+**Supported Versions**
+Tested on Windows and Linux.
+
+- Python 3.8
+- Python 3.7
+- Python 3.6
 
 ## Usage
 
@@ -77,6 +83,5 @@ Once created the Visual Studio project will be configured such that the Release 
 
 ## Dev Tasks
 
-- [ ] Convert usage of `os.path` to `Pathlib`
 - [ ] Get 100% coverage
  
